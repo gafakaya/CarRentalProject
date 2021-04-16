@@ -9,34 +9,40 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-        IProjectDal _projectDal;
+        ICarDal _carDal;
 
-        public CarManager(IProjectDal projectDal)
+        public CarManager(ICarDal carDal)
         {
-            _projectDal = projectDal;
+            _carDal = carDal;
+        }
+
+        public void Add(Car car)
+        {
+            if(car.Description.Length >= 2 && car.DailyPrice > 0)
+            {
+                _carDal.Add(car);
+            }
+            else
+            {
+                throw new Exception("Car name must be longer than 2 letters or The daily price connot be 0");
+            }
+            
         }
 
         public List<Car> GetAll()
         {
             // if / koşullar / Sorgular vb.
-            return _projectDal.GetAll();
+            return _carDal.GetAll();
         }
 
-        public List<Car> GetById(int carId)
+        public List<Car> GetCarsByBrandId(int BrandId)
         {
-            return _projectDal.GetById(carId);
-
+            return _carDal.GetAll(p => p.BrandId == BrandId);
         }
 
-        public List<Car> OrderByDailyPriceAsc()
+        public List<Car> GetCarsByColorId(int ColorId)
         {
-            return _projectDal.OrderByDailyPriceAsc();
-        }
-
-        public List<Car> OrderByDailyPriceDesc()
-        {
-            return _projectDal.OrderByDailyPriceDesc();
-
+            return _carDal.GetAll(p => p.ColorId == ColorId);
         }
     }
 }
