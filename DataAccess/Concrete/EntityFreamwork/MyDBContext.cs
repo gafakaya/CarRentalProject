@@ -18,5 +18,12 @@ namespace DataAccess.Concrete.EntityFreamwork
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Color> Colors { get; set; }
 
+        // Kötü isimlendirilmeleri olan tablolari
+        // entity ile eşlemek için kullanılır.
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity(<Personel>().ToTable("Employees"));
+        //}
+
     }
 }
