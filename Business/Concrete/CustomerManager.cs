@@ -25,17 +25,20 @@ namespace Business.Concrete
 
         public IResult Delete(Customer customer)
         {
-            throw new NotImplementedException();
+
+            _customerDal.Delete(customer);
+            return new SuccessResult();
         }
 
         public IDataResult<List<Customer>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
 
         public IResult Update(Customer customer)
         {
-            throw new NotImplementedException();
+            _customerDal.Update(customer);
+            return new SuccessResult();
         }
     }
 }
