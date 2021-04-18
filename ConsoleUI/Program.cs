@@ -14,92 +14,66 @@ namespace ConsoleUI
             ICarService carService = new CarManager(new EfCarDal());
             IBrandService brandService = new BrandManager(new EfBrandDal());
             IColorService colorService = new ColorManager(new EfColorDal());
+            IUserService userService = new UserManager(new EfUserDal());
+            IRentalService rentalService = new RentalManager(new EfRentalDal());
+            ICustomerService customerService = new CustomerManager(new EfCustomerDal());
 
-            //GetCarDetailTest(carService);
 
-            //GetAllCarTest(carService);
+            //AddUserTest(userService);
+            //AddUsersTest(userService);
 
-            //AddCarTest(carService);
+            //customerService.Add(new Customer { Id = 1, CompanyName = "A Firması", UserId = 1 });
+            //AddCustomersTest(customerService);
 
-            //AddBrandTest(brandService);
+            //AddRentalTest(rentalService);
 
-            //GetAllBrandTest(brandService);
-
-            //AddColorTest(colorService);
-
-            //GetAllColorTest(colorService);
-
-            //var result = brandService.GetById(1);
-            //Console.WriteLine(result.BrandName);
+            //GetAllRentals(rentalService);
 
         }
 
-        private static void GetAllColorTest(IColorService colorService)
+        private static void GetAllRentals(IRentalService rentalService)
         {
-            foreach (var color in colorService.GetAll())
+            foreach (var rental in rentalService.GetAll().Data)
             {
-                Console.WriteLine("Name: {0}\nID: {1}", color.ColorName, color.ColorId);
+                Console.WriteLine("{0} - {1} - {2}", rental.CarId, rental.CustomerId, rental.RentDate);
             }
         }
 
-        private static void AddColorTest(IColorService colorService)
+        private static void AddRentalTest(IRentalService rentalService)
         {
-            colorService.Add(new Color
+            rentalService.Add(new Rental
             {
-                ColorId = 12,
-                ColorName = "Fuchsia"
+                Id = 1,
+                CarId = 2,
+                CustomerId = 2,
+                RentDate = DateTime.Now
             });
         }
 
-        private static void GetAllBrandTest(IBrandService brandService)
+        private static void AddCustomersTest(ICustomerService customerService)
         {
-            foreach (var brand in brandService.GetAll())
-            {
-                Console.WriteLine("Name: {0}\nID: {1}", brand.BrandName, brand.BrandId);
-            }
+            customerService.Add(new Customer { Id = 2, CompanyName = "B Firması", UserId = 2 });
+            customerService.Add(new Customer { Id = 3, CompanyName = "C Firması", UserId = 3 });
+            customerService.Add(new Customer { Id = 4, CompanyName = "D Firması", UserId = 4 });
         }
 
-        private static void AddBrandTest(IBrandService brandService)
+        private static void AddUsersTest(IUserService userService)
         {
-            brandService.Add(new Brand
+            userService.Add(new User { Id = 2, FirstName = "Ayşe", LastName = "Demir", Email = "a.demir@mail.com", Password = "123456" });
+            userService.Add(new User { Id = 3, FirstName = "Ahmet", LastName = "Yılmaz", Email = "a.yilmaz@mail.com", Password = "123456" });
+            userService.Add(new User { Id = 4, FirstName = "John", LastName = "Carpenter", Email = "j.carpenter@mail.com", Password = "123456" });
+        }
+
+        private static void AddUserTest(IUserService userService)
+        {
+            userService.Add(new User
             {
-                BrandId = 8,
-                BrandName = "Lamborgini"
+                Id = 1,
+                FirstName = "Mehmet",
+                LastName = "Kaya",
+                Email = "kaya@gmail.com",
+                Password = "12345"
             });
-        }
-
-        private static void AddCarTest(ICarService carService)
-        {
-            carService.Add(new Car
-            {
-                CarId = 6,
-                BrandId = 2,
-                ColorId = 4,
-                ModelYear = "2021",
-                DailyPrice = 550,
-                Description = "Hummer"
-            });
-        }
-
-        private static void GetAllCarTest(ICarService carService)
-        {
-            foreach (var car in carService.GetAll())
-            {
-                Console.WriteLine(car.CarId);
-                Console.WriteLine(car.BrandId);
-                Console.WriteLine(car.ColorId);
-                Console.WriteLine(car.ModelYear);
-                Console.WriteLine(car.Description);
-                Console.WriteLine(car.DailyPrice);
-            }
-        }
-
-        private static void GetCarDetailTest(ICarService carService)
-        {
-            foreach (var detail in carService.GetCarDetails())
-            {
-                Console.WriteLine("Car Id : {0}\nBrand Name: {1}\nColor Name: {2}\nDaily Price: {3}\n", detail.CarId, detail.BrandName, detail.ColorName, detail.DailyPrice);
-            }
         }
     }
 }
