@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -34,6 +35,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("Car.List")]
         public IDataResult<List<Car>> GetAll()
         {
             // if / koşullar / Sorgular vb.
