@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -34,8 +35,9 @@ namespace Business.Concrete
             _carDal.Add(car);
             return new SuccessResult();
         }
-        [ValidationAspect(typeof(CarValidator))]
         [SecuredOperation("Car.List")]
+        [ValidationAspect(typeof(CarValidator))]
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             // if / koşullar / Sorgular vb.
