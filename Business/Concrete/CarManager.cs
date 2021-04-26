@@ -35,7 +35,7 @@ namespace Business.Concrete
             _carDal.Add(car);
             return new SuccessResult();
         }
-        [SecuredOperation("Car.List")]
+        //[SecuredOperation("Car.List")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
